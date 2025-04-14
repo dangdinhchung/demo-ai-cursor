@@ -1,0 +1,238 @@
+## I. Kaopiz Checklist Coding
+
+### 1. Code sạch
+
+- Loại bỏ code, comment không dùng, tránh lặp lại (DRY principle).
+- Đặt tên biến, hàm, component có ý nghĩa (ví dụ: `userList` thay vì `list`).
+
+```vue
+<!-- Bad -->
+<script lang="ts">
+const unrelated = () => {
+  console.log("unused");
+};
+</script>
+
+<!-- Good -->
+<script lang="ts">
+export default defineComponent({ name: "MyComponent" });
+</script>
+```
+
+### 2. Comment
+
+- Thêm comment cho đoạn logic phức tạp.
+
+```ts
+// Bad
+const result = someComplexFunction();
+
+// Good
+// Calculate complex result based on input
+const result = someComplexFunction();
+```
+
+### 3. Xử lí lỗi
+
+- Xử lý trường hợp null, rỗng và ngoại lệ.
+
+```vue
+<!-- Bad -->
+<div>{{ data }}</div>
+
+<!-- Good -->
+<div>{{ data || 'No data available' }}</div>
+```
+
+### 4. Ngăn spam button
+
+- Ngăn chặn spam button bằng trạng thái loading.
+
+```vue
+<script lang="ts">
+const isLoading = ref(false);
+const handleClick = () => {
+  if (isLoading.value) return;
+  isLoading.value = true;
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2000);
+};
+</script>
+
+<template>
+  <button :disabled="isLoading" @click="handleClick">Click me</button>
+</template>
+```
+
+### 5. Tính tương tác
+
+- Đảm bảo các phần tử giao diện dễ tương tác (thêm tabindex).
+
+```html
+<h1 tabindex="0">Title</h1>
+```
+
+### 6. Bảo mật
+
+- Dùng biến môi trường cho dữ liệu nhạy cảm (ví dụ: `process.env.NUXT_ENV_API_KEY`).
+- Tránh hardcode key/token.
+
+```ts
+// Bad
+const API_KEY = "1234567890";
+
+// Good
+const API_KEY = process.env.NUXT_ENV_API_KEY;
+```
+
+### 7. Thư viện bên ngoài
+
+- Không dùng thư viện có vấn đề bảo mật hoặc vi phạm bản quyền.
+
+### 8. Bảo mật lưu trữ
+
+- Không lưu thông tin cá nhân (email, số điện thoại) vào storage, trừ token.
+- Mã hóa dữ liệu nhạy cảm nếu cần lưu.
+
+```ts
+// Bad
+localStorage.setItem("userEmail", "user@example.com");
+
+// Good
+localStorage.setItem("authToken", encryptData(userToken));
+```
+
+### 9. Bảo mật dữ liệu
+
+- Không lưu dữ liệu nhạy cảm trong localStorage, sessionStorage, cookie, hoặc URL.
+
+## II. Quy tắc Nuxt.js + Vue.js + TypeScript
+
+### 1. Quy tắc đặt tên
+
+- **Biến**: Dùng camelCase, tên rõ nghĩa (ví dụ: `userName`, `isLoading`).
+- **Hàm**: Bắt đầu bằng động từ (ví dụ: `fetchUser`).
+- **Component**: Dùng PascalCase (ví dụ: `UserCard`), thêm hậu tố `Page` cho trang (ví dụ: `HomePage`).
+- **File**: Dùng kebab-case (ví dụ: `user-card.vue`, `home-page.vue`).
+
+### 2. TypeScript
+
+- Luôn định nghĩa kiểu cho props, biến, và giá trị trả về.
+
+```vue
+<script lang="ts">
+export default defineComponent({
+  props: {
+    text: { type: String, required: true },
+  },
+});
+</script>
+```
+
+### 3. Tối ưu hiệu suất
+
+- Lazy load component bằng `defineAsyncComponent`.
+
+```ts
+const LazyComponent = defineAsyncComponent(
+  () => import("~/components/LazyComponent.vue")
+);
+```
+
+- Dùng `<NuxtImg>` thay cho `<img>`.
+
+```html
+<NuxtImg src="/avatar.jpg" width="100" height="100" alt="Avatar" />
+```
+
+- Dùng `<NuxtLink>` thay cho `<a>`.
+
+```html
+<NuxtLink to="/about">About</NuxtLink>
+```
+
+- Tối ưu render bằng `v-memo` nếu cần.
+
+```vue
+<div v-memo="[value]">Content</div>
+```
+
+### 4. Lấy dữ liệu
+
+- Dùng `$fetch` hoặc `useFetch` cho server-side fetching.
+
+```vue
+<script lang="ts">
+const { data } = await useFetch("/api/data");
+</script>
+```
+
+### 5. Render
+
+- Thêm `:key` khi render danh sách.
+
+```vue
+<li v-for="(item, index) in items" :key="index">{{ item }}</li>
+```
+
+### 6. Vòng đời
+
+- Dùng Composition API (`onMounted`, `onUnmounted`).
+
+```vue
+<script lang="ts">
+onMounted(() => {
+  console.log("Mounted");
+});
+</script>
+```
+
+### 7. Linting & Formatting
+
+- Dùng ESLint và Prettier với quy tắc Vue/Recommended.
+- Đảm bảo không có lỗi lint trước khi commit.
+
+### 8. Tài liệu
+
+- Thêm TSDoc cho hàm, composable, và component.
+
+```ts
+/**
+ * Calculate cart total
+ * @param items - List of cart items
+ * @returns Total value
+ */
+const calculateTotal = (items: CartItem[]): number => { ... };
+```
+
+### 9. Chất lượng mã nguồn
+
+- Mỗi file chỉ chứa một component.
+- Dùng Server Components trong Nuxt 3 khi không cần interactivity phía client.
+- Tránh re-render không cần thiết bằng `computed` hoặc `watch` với điều kiện cụ thể.
+
+```vue
+<!-- Good -->
+<script lang="ts">
+import { ref, computed } from "vue";
+
+const count = ref<number>(0);
+const doubled = computed(() => count.value * 2);
+
+export default defineComponent({
+  setup() {
+    return { count, doubled };
+  },
+});
+</script>
+
+<template>
+  <div>{{ doubled }}</div>
+</template>
+```
+
+### 10. Kiểm tra bảo mật thư viện
+
+- Chỉ dùng thư viện từ nguồn đáng tin cậy (`npm`, `yarn`).
+- Kiểm tra phiên bản thư viện có lỗi bảo mật trước khi dùng.
