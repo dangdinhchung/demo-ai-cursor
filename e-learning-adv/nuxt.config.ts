@@ -2,14 +2,17 @@
 export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: true },
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@vueuse/nuxt'
   ],
+
   css: [
     '~/assets/css/main.css'
   ],
+
   app: {
     head: {
       title: 'E-Learning Platform',
@@ -24,7 +27,10 @@ export default defineNuxtConfig({
       ]
     }
   },
+
   experimental: {
     payloadExtraction: false
-  }
+  },
+
+  compatibilityDate: '2025-04-14'
 })
