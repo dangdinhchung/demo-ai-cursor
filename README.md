@@ -12,10 +12,51 @@ Nền tảng học tập trực tuyến tiên tiến với các tính năng hi�
 - **Giao diện responsive**: Tương thích với mọi thiết bị
 - **Tích hợp AI**: Hỗ trợ học tập thông minh
 
-## Yêu cầu hệ thống
+## Cài đặt và Chạy Dự Án
+
+### Yêu cầu hệ thống
 - Node.js phiên bản 14.x trở lên
 - Cursor IDE đã được cài đặt
 - Git đã được cài đặt và cấu hình
+- npm hoặc yarn package manager
+
+### Các bước cài đặt
+
+1. Clone repository:
+```bash
+git clone https://github.com/dangdinhchung/demo-ai-cursor.git
+cd demo-ai-cursor
+```
+
+2. Cài đặt dependencies:
+```bash
+npm install
+# hoặc
+yarn install
+```
+
+3. Tạo file môi trường:
+```bash
+cp .env.example .env
+```
+
+4. Chạy dự án ở môi trường development:
+```bash
+npm run dev
+# hoặc
+yarn dev
+```
+
+5. Build cho production:
+```bash
+npm run build
+npm run start
+# hoặc
+yarn build
+yarn start
+```
+
+Ứng dụng sẽ chạy tại `http://localhost:3000`
 
 ## Hướng dẫn cài đặt MCP Server
 
@@ -108,6 +149,22 @@ e-learning-adv/
 ├── layouts/           # Layouts của ứng dụng
 ├── assets/           # Resources (images, styles)
 └── plugins/          # Plugins và extensions
+```
+
+## Scripts có sẵn
+
+```bash
+# Chạy môi trường development
+npm run dev
+
+# Build cho production
+npm run build
+
+# Chạy tests
+npm run test
+
+# Lint và fix files
+npm run lint
 ```
 
 ## Lưu ý quan trọng
