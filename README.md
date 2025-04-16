@@ -1,4 +1,16 @@
-# demo-ai-cursor
+# E-Learning Advanced Platform
+
+## Tổng quan
+Nền tảng học tập trực tuyến tiên tiến với các tính năng hiện đại và giao diện người dùng thân thiện.
+
+## Tính năng chính
+- **Quản lý khóa học**: Tạo, chỉnh sửa và quản lý các khóa học
+- **Hệ thống thi trực tuyến**: 
+  - Thi trắc nghiệm và tự luận
+  - Đánh giá tự động
+  - Theo dõi tiến độ thời gian thực
+- **Giao diện responsive**: Tương thích với mọi thiết bị
+- **Tích hợp AI**: Hỗ trợ học tập thông minh
 
 ## Yêu cầu hệ thống
 - Node.js phiên bản 14.x trở lên
@@ -85,6 +97,19 @@
 - Đóng hoàn toàn Cursor IDE
 - Khởi động lại để áp dụng cấu hình mới
 
+## Cấu trúc dự án
+```
+e-learning-adv/
+├── pages/               # Các trang của ứng dụng
+│   ├── index.vue       # Trang chủ
+│   ├── courses/        # Quản lý khóa học
+│   └── exams/          # Hệ thống thi
+├── components/         # Components tái sử dụng
+├── layouts/           # Layouts của ứng dụng
+├── assets/           # Resources (images, styles)
+└── plugins/          # Plugins và extensions
+```
+
 ## Lưu ý quan trọng
 - Không chia sẻ các API key và token với người khác
 - Nên lưu các key và token vào biến môi trường thay vì hard code trong file cấu hình
@@ -95,8 +120,19 @@
   - File `mcp.json` được định dạng JSON hợp lệ
   - Cursor IDE đã được khởi động lại sau khi cấu hình
 
+## Đóng góp
+Chúng tôi rất hoan nghênh mọi đóng góp! Hãy:
+1. Fork repository này
+2. Tạo branch mới (`git checkout -b feature/AmazingFeature`)
+3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`)
+4. Push lên branch (`git push origin feature/AmazingFeature`)
+5. Tạo Pull Request
+
 ## Hỗ trợ
 Nếu bạn gặp vấn đề, vui lòng:
 1. Kiểm tra logs trong Cursor IDE
 2. Tạo issue trong repository này
 3. Kiểm tra documentation của [Cursor IDE](https://cursor.sh/docs)
+
+## License
+Distributed under the MIT License. See `LICENSE` for more information.

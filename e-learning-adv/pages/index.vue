@@ -5,6 +5,64 @@
       Thi Quản trị rủi ro doanh nghiệp
     </h1>
 
+    <!-- Result Modal -->
+    <div v-if="showResultModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-6 w-full max-w-2xl">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">Kết quả thi</h2>
+          <button @click="showResultModal = false" class="text-gray-500 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-gray-600">Lần thi:</p>
+              <p class="font-medium">{{ selectedResult.attempt }}</p>
+            </div>
+            <div>
+              <p class="text-gray-600">Thời gian làm bài:</p>
+              <p class="font-medium">{{ selectedResult.examTime }}</p>
+            </div>
+            <div>
+              <p class="text-gray-600">Điểm số:</p>
+              <p class="font-medium">{{ selectedResult.score }}</p>
+            </div>
+            <div>
+              <p class="text-gray-600">Trạng thái:</p>
+              <p :class="{'text-success': selectedResult.status === 'Đạt', 'text-danger': selectedResult.status === 'Không đạt'}" class="font-medium">
+                {{ selectedResult.status }}
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <h3 class="font-medium mb-3">Chi tiết bài làm</h3>
+            <div class="space-y-4">
+              <div v-for="(question, index) in selectedResult.questions" :key="index" class="p-4 border rounded-lg">
+                <p class="font-medium mb-2">Câu {{ index + 1 }}: {{ question.text }}</p>
+                <div class="space-y-2 ml-4">
+                  <p v-for="(option, optIndex) in question.options" :key="optIndex" 
+                     :class="{
+                       'text-success': option.isCorrect && option.isSelected,
+                       'text-danger': !option.isCorrect && option.isSelected,
+                       'text-gray-600': !option.isSelected
+                     }">
+                    {{ ['A', 'B', 'C', 'D'][optIndex] }}. {{ option.text }}
+                    <span v-if="option.isSelected">(Đã chọn)</span>
+                    <span v-if="option.isCorrect">(Đáp án đúng)</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Content -->
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
       <!-- Left Content - Takes 3 columns on large screens -->
@@ -86,7 +144,10 @@
                   </td>
                   <td class="py-4">35/40</td>
                   <td class="py-4">
-                    <button class="text-primary font-medium hover:underline">
+                    <button 
+                      class="text-primary font-medium hover:underline"
+                      @click="openResultModal(2)"
+                    >
                       XEM KẾT QUẢ
                     </button>
                   </td>
@@ -102,7 +163,10 @@
                   </td>
                   <td class="py-4">35/40</td>
                   <td class="py-4">
-                    <button class="text-primary font-medium hover:underline">
+                    <button 
+                      class="text-primary font-medium hover:underline"
+                      @click="openResultModal(1)"
+                    >
                       XEM KẾT QUẢ
                     </button>
                   </td>
@@ -162,4 +226,36 @@
 definePageMeta({
   layout: 'default'
 })
+
+const showResultModal = ref(false)
+const selectedResult = ref({
+  attempt: '',
+  examTime: '',
+  score: '',
+  status: '',
+  questions: [
+    {
+      text: 'Đâu là yếu tố quan trọng nhất trong quản trị rủi ro?',
+      options: [
+        { text: 'Nhận diện rủi ro', isCorrect: true, isSelected: true },
+        { text: 'Phân tích rủi ro', isCorrect: false, isSelected: false },
+        { text: 'Đánh giá rủi ro', isCorrect: false, isSelected: false },
+        { text: 'Xử lý rủi ro', isCorrect: false, isSelected: false }
+      ]
+    },
+    // More questions can be added here
+  ]
+})
+
+const openResultModal = (attempt: any) => {
+  // In a real application, you would fetch the actual results based on the attempt
+  selectedResult.value = {
+    attempt: `Lần ${attempt}`,
+    examTime: '14:16 11/11/2011',
+    score: '35/40',
+    status: attempt === 1 ? 'Không đạt' : 'Đạt',
+    questions: selectedResult.value.questions
+  }
+  showResultModal.value = true
+}
 </script> 
