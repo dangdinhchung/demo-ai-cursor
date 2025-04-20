@@ -1,9 +1,62 @@
-# demo-ai-cursor
+# E-Learning Advanced Platform
 
-## Yêu cầu hệ thống
+## Tổng quan
+Nền tảng học tập trực tuyến tiên tiến với các tính năng hiện đại và giao diện người dùng thân thiện.
+
+## Tính năng chính
+- **Quản lý khóa học**: Tạo, chỉnh sửa và quản lý các khóa học
+- **Hệ thống thi trực tuyến**: 
+  - Thi trắc nghiệm và tự luận
+  - Đánh giá tự động
+  - Theo dõi tiến độ thời gian thực
+- **Giao diện responsive**: Tương thích với mọi thiết bị
+- **Tích hợp AI**: Hỗ trợ học tập thông minh
+
+## Cài đặt và Chạy Dự Án
+
+### Yêu cầu hệ thống
 - Node.js phiên bản 14.x trở lên
 - Cursor IDE đã được cài đặt
 - Git đã được cài đặt và cấu hình
+- npm hoặc yarn package manager
+
+### Các bước cài đặt
+
+1. Clone repository:
+```bash
+git clone https://github.com/dangdinhchung/demo-ai-cursor.git
+cd demo-ai-cursor
+```
+
+2. Cài đặt dependencies:
+```bash
+npm install
+# hoặc
+yarn install
+```
+
+3. Tạo file môi trường:
+```bash
+cp .env.example .env
+```
+
+4. Chạy dự án ở môi trường development:
+```bash
+npm run dev
+# hoặc
+yarn dev
+```
+
+5. Build cho production:
+```bash
+npm run build
+npm run start
+# hoặc
+yarn build
+yarn start
+```
+
+Ứng dụng sẽ chạy tại `http://localhost:3000`
 
 ## Hướng dẫn cài đặt MCP Server
 
@@ -85,6 +138,35 @@
 - Đóng hoàn toàn Cursor IDE
 - Khởi động lại để áp dụng cấu hình mới
 
+## Cấu trúc dự án
+```
+e-learning-adv/
+├── pages/               # Các trang của ứng dụng
+│   ├── index.vue       # Trang chủ
+│   ├── courses/        # Quản lý khóa học
+│   └── exams/          # Hệ thống thi
+├── components/         # Components tái sử dụng
+├── layouts/           # Layouts của ứng dụng
+├── assets/           # Resources (images, styles)
+└── plugins/          # Plugins và extensions
+```
+
+## Scripts có sẵn
+
+```bash
+# Chạy môi trường development
+npm run dev
+
+# Build cho production
+npm run build
+
+# Chạy tests
+npm run test
+
+# Lint và fix files
+npm run lint
+```
+
 ## Lưu ý quan trọng
 - Không chia sẻ các API key và token với người khác
 - Nên lưu các key và token vào biến môi trường thay vì hard code trong file cấu hình
@@ -95,8 +177,19 @@
   - File `mcp.json` được định dạng JSON hợp lệ
   - Cursor IDE đã được khởi động lại sau khi cấu hình
 
+## Đóng góp
+Chúng tôi rất hoan nghênh mọi đóng góp! Hãy:
+1. Fork repository này
+2. Tạo branch mới (`git checkout -b feature/AmazingFeature`)
+3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`)
+4. Push lên branch (`git push origin feature/AmazingFeature`)
+5. Tạo Pull Request
+
 ## Hỗ trợ
 Nếu bạn gặp vấn đề, vui lòng:
 1. Kiểm tra logs trong Cursor IDE
 2. Tạo issue trong repository này
 3. Kiểm tra documentation của [Cursor IDE](https://cursor.sh/docs)
+
+## License
+Distributed under the MIT License. See `LICENSE` for more information.
